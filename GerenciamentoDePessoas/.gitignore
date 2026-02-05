@@ -1,0 +1,84 @@
+## =========================
+## .NET / Visual Studio
+## =========================
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+out/
+
+# Visual Studio files
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VSCode
+.idea/
+.vscode/
+*.code-workspace
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/NuGet.exe
+.nuget/NuGet.Config
+.nuget/NuGet.targets
+
+# Publish output
+**/Properties/PublishProfiles/
+publish/
+wwwroot/lib/
+
+# IIS / Local server
+.iisexpress/
+applicationhost.config
+
+# Logs
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Secrets
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Test results
+TestResults/
+*.trx
+
+# Cache
+*.cache
+*.tmp
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# SQL / Local DB
+*.mdf
+*.ldf
+
+# JetBrains
+.idea/
