@@ -1,0 +1,30 @@
+﻿@model List<Pessoa>
+
+<h1>Lista de Usuários</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Tipo Sanguíneo</th>
+            <th scope="col">Data de Nascimento</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var pessoa in Model)
+        {
+            <tr>
+                <td>@pessoa.Id</td>
+                <td>@pessoa.Nome</td>
+                <td>@pessoa.Sobrenome</td>
+                <td>@pessoa.CPF</td>
+                <td>@pessoa.TipoSanguineo.ToString()</td>
+                <td>@pessoa.DataNascimento.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
