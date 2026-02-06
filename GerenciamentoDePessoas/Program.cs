@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using GerenciamentoDePessoas.Data;
+using GerenciamentoDePessoas.Services;
+using GerenciamentoDePessoas.Repository;
 namespace GerenciamentoDePessoas
 {
     public class Program
@@ -14,6 +16,9 @@ namespace GerenciamentoDePessoas
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IPessoaService, PessoaService>();
+            builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
             var app = builder.Build();
 
