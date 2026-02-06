@@ -8,8 +8,9 @@ namespace GerenciamentoDePessoas
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             builder.Services.AddDbContext<GerenciamentoDePessoasContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("GerenciamentoDePessoasContext") ?? throw new InvalidOperationException("Connection string 'GerenciamentoDePessoasContext' not found.")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("GerenciamentoDePessoasContext")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
