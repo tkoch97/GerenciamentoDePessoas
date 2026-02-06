@@ -1,6 +1,12 @@
-﻿namespace GerenciamentoDePessoas.Services
+﻿using GerenciamentoDePessoas.Models;
+
+namespace GerenciamentoDePessoas.Services
 {
-    public class PessoaService
+    public class PessoaService : IPessoaService
     {
+        public List<Pessoa> BuscarTodos()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
