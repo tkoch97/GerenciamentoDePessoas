@@ -1,12 +1,22 @@
 ﻿using GerenciamentoDePessoas.Models;
+using GerenciamentoDePessoas.Repository;
 
 namespace GerenciamentoDePessoas.Services
 {
     public class PessoaService : IPessoaService
     {
-        public List<Pessoa> BuscarTodos()
+        private readonly IPessoaRepository _pessoaRepository;
+
+        public PessoaService(IPessoaRepository pessoaRepository)
         {
-            throw new NotImplementedException();
+            _pessoaRepository = pessoaRepository;
+        }
+
+        public async Task<List<Pessoa>> BuscarTodos()
+        {
+            var usuariosBanco = await _pessoaRepository.BuscarTodosAsync();
+
+            return usuariosBanco;
         }
     }
 }
