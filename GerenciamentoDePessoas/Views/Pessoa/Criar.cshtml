@@ -1,0 +1,48 @@
+﻿@using GerenciamentoDePessoas.Models.Enums
+@model Pessoa
+
+<h1>Cadastar Pessoa</h1>
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Erro"]
+    </div>
+}
+
+
+<form asp-action="Criar" asp-controller="Pessoa" method="post">
+    <div class="mb-3">
+        <label for="nomeUsuario" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nomeUsuario" asp-for="Nome" placeholder="Digite seu nome">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="sobrenomeUsuario" class="form-label">Sobrenome</label>
+        <input type="text" class="form-control" id="sobrenomeUsuario" asp-for="Sobrenome" placeholder="Digite seu sobrenome">
+        <span asp-validation-for="Sobrenome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="dataNascimentoUsuario" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" id="dataNascimentoUsuario" asp-for="DataNascimento">
+        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="cpfUsuario" class="form-label">CPF</label>
+        <input type="number" class="form-control" id="cpfUsuario" asp-for="CPF" placeholder="Digite seu sobrenome">
+        <span asp-validation-for="CPF" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <select class="form-select" asp-for="TipoSanguineo" aria-label="Seletor de tipo sanguíneo">
+            @foreach(var tipo in Enum.GetValues(typeof(ETipoSanguineo)))
+            {
+                <option value="@tipo">@tipo</option>
+            }else
+            {
+                <option selected>Selecione seu tipo sanguíneo</option>
+            }
+        </select>
+        <span asp-validation-for="TipoSanguineo" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
