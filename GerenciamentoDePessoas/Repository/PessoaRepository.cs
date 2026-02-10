@@ -13,14 +13,14 @@ namespace GerenciamentoDePessoas.Repository
             _context = context;
         }
 
-        public async Task<List<Pessoa>> BuscarTodosAsync()
+        public async Task<List<Pessoa>> BuscarTodos()
         {
-            var usariosBanco = await _context.Pessoas.ToListAsync();
+            var pessoasBanco = await _context.Pessoas.AsNoTracking().ToListAsync();
 
-            return usariosBanco;
+            return pessoasBanco;
         }
 
-        public async Task<Pessoa> Criar(Pessoa pessoa)
+        public async Task Criar(Pessoa pessoa)
         {
             try
             {
@@ -31,14 +31,28 @@ namespace GerenciamentoDePessoas.Repository
             {
                 throw new Exception($"Ocorreu um erro no banco de dados: {ex.Message}");
             }
-
-            return pessoa;
         }
 
-        public async Task<bool> VerificarSeUsuarioExiste(string cpf)
+        public async Task<bool> VerificarSePessoaExiste(string cpf)
         {
-            var usuarioExiste = await _context.Pessoas.AnyAsync(user => user.CPF == cpf);
-            return usuarioExiste;
+            var pessoaExiste = await _context.Pessoas.AnyAsync(user => user.CPF == cpf);
+            return pessoaExiste;
+        }
+
+        public async Task<Pessoa?> BuscarPorIdParaExibir(int id)
+        {
+            return await _context.Pessoas.AsNoTracking().FirstOrDefaultAsync(user => user.Id == id);
+        }
+
+        public async Task<Pessoa?> BuscarPorIdParaEditar(int id)
+        {
+            return await _context.Pessoas.FirstOrDefaultAsync(user => user.Id == id);
+        }
+
+        public async Task Editar(Pessoa pessoa)
+        {
+            _context.Pessoas.Update(pessoa);
+            await _context.SaveChangesAsync();
         }
     }
 }
