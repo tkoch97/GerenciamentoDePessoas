@@ -14,23 +14,43 @@ namespace GerenciamentoDePessoas.Services
 
         public async Task<List<Pessoa>> BuscarTodos()
         {
-            var usuariosBanco = await _pessoaRepository.BuscarTodosAsync();
+            var pessoasBanco = await _pessoaRepository.BuscarTodos();
 
-            return usuariosBanco;
+            return pessoasBanco;
         }
 
-        public async Task<Pessoa> Criar(Pessoa pessoa)
+        public async Task Criar(Pessoa pessoa)
         {
-            var usuarioExiste = await _pessoaRepository.VerificarSeUsuarioExiste(pessoa.CPF);
-            if (usuarioExiste)
+            var pessoaExiste = await _pessoaRepository.VerificarSePessoaExiste(pessoa.CPF);
+            if (pessoaExiste)
             {
-                throw new Exception("Usuário já cadastrado no sistema");
+                throw new Exception("Pessoa já cadastrada no sistema");
             }
             else
             {
-                var usuarioCriado = await _pessoaRepository.Criar(pessoa);
-                return usuarioCriado;
+                await _pessoaRepository.Criar(pessoa);
             }
+        }
+
+        public async Task<Pessoa> BuscarPorIdParaExibir(int id)
+        {
+            var pessoaNoBanco = await _pessoaRepository.BuscarPorIdParaExibir(id);
+            if (pessoaNoBanco == null)
+                throw new Exception("Pessoa não encontrada no banco");
+            return pessoaNoBanco;
+        }
+
+        public async Task Editar(Pessoa pessoa)
+        {
+            var pessoaParaEditar = await _pessoaRepository.BuscarPorIdParaEditar(pessoa.Id);
+
+            pessoaParaEditar!.Nome = pessoa.Nome;
+            pessoaParaEditar.Sobrenome = pessoa.Sobrenome;
+            pessoaParaEditar.DataNascimento = pessoa.DataNascimento;
+            pessoaParaEditar.CPF = pessoa.CPF;
+            pessoaParaEditar.TipoSanguineo = pessoa.TipoSanguineo;
+
+            await _pessoaRepository.Editar(pessoaParaEditar);
         }
     }
 }

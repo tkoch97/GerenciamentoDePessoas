@@ -5,6 +5,8 @@ namespace GerenciamentoDePessoas.Services
     public interface IPessoaService
     {
         Task<List<Pessoa>> BuscarTodos();
-        Task<Pessoa> Criar(Pessoa pessoa);
+        Task Criar(Pessoa pessoa);
+        Task<Pessoa> BuscarPorIdParaExibir(int id);
+        Task Editar(Pessoa pessoa);
     }
 }
