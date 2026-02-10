@@ -29,14 +29,14 @@ namespace GerenciamentoDePessoas.Models
         public string Sobrenome { get; set; } = string.Empty;
 
         [CustomValidation(typeof(Pessoa), "ValidarDataNascimento")]
-        [Required(ErrorMessage = "Por favor, informa sua data de nascimento")]
+        [Required(ErrorMessage = "Por favor, informe sua data de nascimento")]
         public DateTime DataNascimento { get; set; }
 
-        [Required(ErrorMessage = "O sobrenome é obrigatório")]
+        [Required(ErrorMessage = "O CPF é obrigatório")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "O CPF deve conter 11 dígitos sem caracteres especiais")]
         public string CPF { get; set; }
 
-        [Required(ErrorMessage = "O sobrenome é obrigatório")]
+        [Required(ErrorMessage = "O Tipo Sanguíneo é obrigatório")]
         public ETipoSanguineo TipoSanguineo { get; set; }
 
         public static ValidationResult ValidarDataNascimento(DateTime dataNascimento)
