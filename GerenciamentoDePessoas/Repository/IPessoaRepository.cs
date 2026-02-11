@@ -10,5 +10,6 @@ namespace GerenciamentoDePessoas.Repository
         Task<Pessoa?> BuscarPorIdParaExibir(int id);
         Task<Pessoa?> BuscarPorIdParaEditar(int id);
         Task Editar(Pessoa pessoa);
+        Task Apagar(Pessoa pessoa);
     }
 }
