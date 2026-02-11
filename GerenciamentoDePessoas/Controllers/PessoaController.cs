@@ -90,5 +90,27 @@ namespace GerenciamentoDePessoas.Controllers
                 return View(pessoa);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Apagar(int id)
+        {
+            try
+            {
+                if(id == 0)
+                {
+                    throw new Exception("Um Id deve ser informado");
+                }
+
+                await _pessoaService.Apagar(id);
+                TempData["Sucesso"] = $"Pessoa excluida com sucesso";
+                return RedirectToAction("Index", "Pessoa");
+            }
+            catch (Exception ex)
+            {
+
+                TempData["Erro"] = ex.Message;
+                return RedirectToAction("Index", "Pessoa");
+            }
+        }
     }
 }
