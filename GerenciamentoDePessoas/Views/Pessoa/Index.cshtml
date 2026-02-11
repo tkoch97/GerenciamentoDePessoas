@@ -1,0 +1,102 @@
+﻿@model List<Pessoa>
+
+<h1>Lista de Pessoas</h1>
+
+@if(TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Sucesso"]
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Erro"]
+    </div>
+}
+
+<a class="btn btn-primary" asp-controller="Pessoa" asp-action="Criar">Cadastrar pessoa</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sobrenome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Tipo Sanguíneo</th>
+            <th scope="col">Data de Nascimento</th>
+            <th scope="col">Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var pessoa in Model)
+        {
+            <tr>
+                <td>@pessoa.Id</td>
+                <td>@pessoa.Nome</td>
+                <td>@pessoa.Sobrenome</td>
+                <td>@pessoa.CPF</td>
+                <td>@pessoa.TipoSanguineo.ToString()</td>
+                <td>@pessoa.DataNascimento.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a style="cursor: pointer; text-decoration: none; color: #0b5ed7;" class="m-2" title="Detalhes" data-bs-toggle="modal" data-bs-target="#ModalDetalhes_@pessoa.Id">
+                        <i class="bi bi-info-circle"></i>
+                    </a>
+                    <a style="text-decoration:none; color: #0b5ed7;" asp-action="Editar" asp-controller="Pessoa" asp-route-id="@pessoa.Id" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a style="cursor: pointer; text-decoration:none; color: #0b5ed7;" class="m-2" title="Excluir" data-bs-toggle="modal" data-bs-target="#ModalDelecao_@pessoa.Id">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <div class="modal fade" id="ModalDetalhes_@pessoa.Id" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Detalhes de @pessoa.Nome</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-center">Nome: @pessoa.Nome</p>
+                            <p class="text-center">Sobrenome: @pessoa.Sobrenome</p>
+                            <p class="text-center">CPF: @pessoa.CPF</p>
+                            <p class="text-center">Tipo sanguíneo: @pessoa.TipoSanguineo.ToString()</p>
+                            <p class="text-center">Data de nascimento: @pessoa.DataNascimento.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-primary">
+                                <a style="text-decoration:none; color: white; width: 100%;" asp-action="Editar" asp-controller="Pessoa" asp-route-id="@pessoa.Id" title="Editar">Editar</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ModalDelecao_@pessoa.Id" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Confirmar deleção</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3>Tem certeza que deseja apagar a pessoa @pessoa.Nome @pessoa.Sobrenome ?</h3>
+                            <span class="text-danger">A ação não poderá ser desfeita após a confirmação!</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form asp-action="Apagar" asp-controller="Pessoa" asp-rout-id="@pessoa.Id" method="">
+                                <button type="submit" class="btn btn-danger">Confirmar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>

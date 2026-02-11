@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciamentoDePessoas.Migrations
 {
     [DbContext(typeof(GerenciamentoDePessoasContext))]
-    [Migration("20260203141428_Initial")]
-    partial class Initial
+    [Migration("20260206154614_Iniciar_Banco")]
+    partial class Iniciar_Banco
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,11 @@ namespace GerenciamentoDePessoas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
@@ -46,9 +51,12 @@ namespace GerenciamentoDePessoas.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<int>("TipoSanguineo")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Pessoa");
+                    b.ToTable("Pessoas");
                 });
 #pragma warning restore 612, 618
         }
