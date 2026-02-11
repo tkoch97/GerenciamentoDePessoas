@@ -8,5 +8,6 @@ namespace GerenciamentoDePessoas.Services
         Task Criar(Pessoa pessoa);
         Task<Pessoa> BuscarPorIdParaExibir(int id);
         Task Editar(Pessoa pessoa);
+        Task Apagar(int id);
     }
 }

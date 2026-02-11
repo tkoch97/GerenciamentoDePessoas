@@ -52,5 +52,14 @@ namespace GerenciamentoDePessoas.Services
 
             await _pessoaRepository.Editar(pessoaParaEditar);
         }
+
+        public async Task Apagar(int id)
+        {
+            var pessoaParaApagar = await _pessoaRepository.BuscarPorIdParaEditar(id);
+            if (pessoaParaApagar == null)
+                throw new Exception("Pessoa não encontrada no banco");
+
+            await _pessoaRepository.Apagar(pessoaParaApagar);
+        }
     }
 }
