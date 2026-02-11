@@ -1,0 +1,56 @@
+﻿@using GerenciamentoDePessoas.Models.Enums
+@model Pessoa
+
+@{
+    ViewData["Title"] = "Editar pessoa";
+}
+
+<h1>Editar Pessoa</h1>
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Erro"]
+    </div>
+}
+
+
+<form asp-action="Editar" asp-controller="Pessoa" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label for="nomePessoa" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="nomePessoa" asp-for="Nome" placeholder="Digite seu nome">
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="sobrenomePessoa" class="form-label">Sobrenome</label>
+        <input type="text" class="form-control" id="sobrenomePessoa" asp-for="Sobrenome" placeholder="Digite seu sobrenome">
+        <span asp-validation-for="Sobrenome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="dataNascimentoPessoa" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" id="dataNascimentoPessoa" asp-for="DataNascimento">
+        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="cpfPessoa" class="form-label">CPF</label>
+        <input type="number" class="form-control" id="cpfPessoa" asp-for="CPF" placeholder="Digite seu CPF">
+        <span asp-validation-for="CPF" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="tipoSanguineoPessoa" class="form-label">Tipo Sanguíneo</label>
+        <select class="form-select" asp-for="TipoSanguineo" id="tipoSanguineoPessoa" aria-label="Seletor de tipo sanguíneo">
+            @foreach (var tipo in Enum.GetValues(typeof(ETipoSanguineo)))
+            if(Model?.TipoSanguineo == (ETipoSanguineo)tipo)
+            {
+                <option selected value="@tipo">@tipo</option>
+            }
+            else
+            {
+                <option value="@tipo">@tipo</option>
+            }
+        </select>
+        <span asp-validation-for="TipoSanguineo" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>

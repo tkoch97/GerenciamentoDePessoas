@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using GerenciamentoDePessoas.Data;
+using GerenciamentoDePessoas.Services;
+using GerenciamentoDePessoas.Repository;
 namespace GerenciamentoDePessoas
 {
     public class Program
@@ -8,11 +10,15 @@ namespace GerenciamentoDePessoas
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
             builder.Services.AddDbContext<GerenciamentoDePessoasContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("GerenciamentoDePessoasContext") ?? throw new InvalidOperationException("Connection string 'GerenciamentoDePessoasContext' not found.")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("GerenciamentoDePessoasContext")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<IPessoaService, PessoaService>();
+            builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
             var app = builder.Build();
 

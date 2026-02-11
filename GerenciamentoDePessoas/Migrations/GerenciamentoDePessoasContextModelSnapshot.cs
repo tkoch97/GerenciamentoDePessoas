@@ -30,6 +30,11 @@ namespace GerenciamentoDePessoas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
@@ -43,9 +48,12 @@ namespace GerenciamentoDePessoas.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<int>("TipoSanguineo")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Pessoa");
+                    b.ToTable("Pessoas");
                 });
 #pragma warning restore 612, 618
         }
