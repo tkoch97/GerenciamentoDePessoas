@@ -1,6 +1,10 @@
 ﻿@using GerenciamentoDePessoas.Models.Enums
 @model Pessoa
 
+@{
+    ViewData["Title"] = "Editar pessoa";
+}
+
 <h1>Editar Pessoa</h1>
 
 @if (TempData["Erro"] != null)
